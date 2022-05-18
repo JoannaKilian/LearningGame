@@ -21,8 +21,16 @@
           </span>
         </div>
         <div class="buttons">
-          <button (click)="checkAnswer()">Check an answer</button>
-          <button (click)="drawTheWord()">Next question</button>
+          <button
+            [disabled]="!(word.length > 0)"
+            (click)="checkAnswer()"
+            [ngStyle]="{ color: word.length > 0 ? 'white' : 'grey' }"
+          >
+            Check an answer
+          </button>
+          <button [disabled]="!disabledButton" (click)="drawTheWord()">
+            Next question
+          </button>
         </div>
       </div>
     </div>
@@ -43,26 +51,12 @@
           </div>
         </div>
         <button
+          [disabled]="disabledBoxButton"
+          [ngStyle]="{ color: disabledBoxButton ? 'grey' : 'white' }"
           [ngClass]="moveEasyButton ? 'moveButton' : 'disable'"
           (click)="onAddPoint('easy')"
         >
           easy {{ easyNumber }} / {{ total }} - {{ easyResult }} %
-        </button>
-      </div>
-      <div class="two">
-        <div class="scene">
-          <div class="floor"></div>
-          <div class="cube">
-            <div class="front"></div>
-            <div class="back"></div>
-            <div class="left"></div>
-            <div class="right"></div>
-            <div class="top"></div>
-            <div class="bottom"></div>
-          </div>
-        </div>
-        <button (click)="onAddPoint('medium')">
-          medium {{ mediumNumber }} / {{ total }}
         </button>
       </div>
       <div class="three">
@@ -81,10 +75,12 @@
           </div>
         </div>
         <button
+          [disabled]="disabledBoxButton"
+          [ngStyle]="{ color: disabledBoxButton ? 'grey' : 'white' }"
           [ngClass]="moveDifficultButton ? 'moveButton' : 'disable'"
           (click)="onAddPoint('difficult')"
         >
-          difficult {{ difficultNumber }} / {{ total }}
+          difficult
         </button>
       </div>
     </div>

@@ -6,7 +6,8 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: #fff;
-  max-width: 1400px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .wrapp {
   height: 82vh;
@@ -25,7 +26,7 @@ header h3 {
   position: relative;
   z-index: 1;
   height: 150px;
-  width: 80vw;
+  width: 80%;
   margin: 0 auto;
   margin-top: 10px;
 }
@@ -39,7 +40,7 @@ button {
   box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.782);
   background-color: rgba(65, 65, 65, 0.991);
   color: #fff;
-  text-shadow: 0.5px 0.5px 3px #000;
+  text-shadow: 0.5px 0.5px 1px #000;
   transition: 1s;
 }
 .moveButton {
@@ -59,7 +60,6 @@ button {
 }
 button:hover {
   box-shadow: 3px 4px 6px inset rgba(0, 0, 0, 0.782);
-  text-shadow: -0.5px -0.5px 3px rgba(216, 211, 211, 0.706);
 }
 .question h2 {
   text-align: center;
@@ -102,7 +102,6 @@ input:focus {
   margin-top: 30px;
 }
 .one,
-.two,
 .three {
   display: flex;
   flex-direction: column;
@@ -110,7 +109,7 @@ input:focus {
   align-items: center;
   width: 250px;
   height: 200px;
-  font-size: 50px;
+  font-size: 55px;
   perspective: 10em;
   perspective-origin: 50% calc(30% - 2em);
 }
@@ -159,13 +158,6 @@ input:focus {
 .one .top {
   background-color: var(--boxColor1);
 }
-.two .left,
-.two .right,
-.two .front,
-.two .back,
-.two .top {
-  background-color: var(--boxColor2);
-}
 .three .left,
 .three .right,
 .three .front,
@@ -196,7 +188,6 @@ input:focus {
   transition: 1s;
 }
 .one:hover .top,
-.two:hover .top,
 .three:hover .top {
   transform-origin: top;
   transform: rotateY(180deg) translateZ(1em) rotateX(40deg);
@@ -216,9 +207,13 @@ input:focus {
   bottom: 0;
 }
 section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 18vh;
-  text-shadow: 0.5px 0.5px 3px #000;
-  background-color: #000;
+  text-shadow: 0.5px 0.5px 1px #000;
+  background-color: #000000bd;
+  box-shadow: 1px -5px 9px #1e1e1e;
   padding: 5px;
   padding-left: 20px;
 }

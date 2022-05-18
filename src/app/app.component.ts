@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, SimpleChanges } from "@angular/core";
 
 @Component({
   selector: "app-root",
@@ -16,6 +16,8 @@ export class AppComponent {
   activeDifficultTop: boolean = false;
   moveEasyButton: boolean = false;
   moveDifficultButton: boolean = false;
+  disabledButton: boolean = true;
+  disabledBoxButton: boolean = true;
 
   checkedWord: string;
   checkedDefinition: string;
@@ -25,7 +27,6 @@ export class AppComponent {
   total: number;
   easyNumber: number = 0;
   easyResult: number;
-  mediumNumber: number = 0;
   difficultNumber: number = 0;
 
   finishGame: boolean = false;
@@ -35,12 +36,12 @@ export class AppComponent {
     "cat",
     "year",
     "day",
-    // "woman",
-    // "life",
-    // "child",
-    // "school",
-    // "family",
-    // "week",
+    "woman",
+    "life",
+    "child",
+    "school",
+    "family",
+    "week",
     // "work",
     // "night",
     // "water",
@@ -109,6 +110,7 @@ export class AppComponent {
     this.activeDifficultTop = false;
     this.moveEasyButton = false;
     this.moveDifficultButton = false;
+    this.disabledBoxButton = true;
   }
   checkAnswer() {
     if (this.word.toUpperCase() == this.drawedWord.toUpperCase()) {
@@ -124,28 +126,31 @@ export class AppComponent {
       this.activeEasyTop = false;
       this.moveDifficultButton = true;
     }
+    this.disabledBoxButton = false;
   }
 
   onAddPoint(level: string) {
-    if (level === "easy") {
-      this.easyNumber++;
-      this.easyResult = (this.easyNumber / this.total) * 100;
-      let i = this.wordArray.indexOf(this.drawedWord);
-      this.wordArray.splice(i, 1);
-      if (this.wordArray.length === 0) {
-        this.finishGame = true;
+    if (this.word.length > 0) {
+      if (level === "easy") {
+        this.easyNumber++;
+        this.easyResult = (this.easyNumber / this.total) * 100;
+        let i = this.wordArray.indexOf(this.drawedWord);
+        this.wordArray.splice(i, 1);
+        if (this.wordArray.length === 0) {
+          this.finishGame = true;
+        }
+      } else if (level === "difficult") {
+        this.difficultNumber++;
       }
-    } else if (level === "medium") {
-      this.mediumNumber++;
-    } else if (level === "difficult") {
-      this.difficultNumber++;
+      this.word = "";
+      this.disabledBoxButton = true;
+      this.drawTheWord();
     }
   }
   onNextGame() {
     this.finishGame = false;
     this.wordArray = this.wordArrayBasic.slice();
     this.easyNumber = 0;
-    this.mediumNumber = 0;
     this.difficultNumber = 0;
   }
 }
