@@ -1,0 +1,118 @@
+<ng-container *ngIf="finishGame"
+  ><div class="finish">
+    <h1>congratulations!</h1>
+    <h1>you know all the words</h1>
+    <button (click)="onNextGame()">next game</button>
+  </div></ng-container
+>
+
+<div class="wrapp">
+  <header><h3>learning english your way</h3></header>
+  <main>
+    <div class="game">
+      <div class="question">
+        <h2>{{ definition }}</h2>
+      </div>
+      <div class="answer">
+        <div class="word">
+          <input placeholder="What is the word?" [(ngModel)]="word" />
+          <span [ngStyle]="{ color: activeEasyTop ? 'green' : 'red' }">
+            {{ preferSelectWord }}
+          </span>
+        </div>
+        <div class="buttons">
+          <button (click)="checkAnswer()">Check an answer</button>
+          <button (click)="drawTheWord()">Next question</button>
+        </div>
+      </div>
+    </div>
+    <div class="boxes">
+      <div class="one">
+        <div class="scene">
+          <div class="floor"></div>
+          <div class="cube">
+            <div class="front"></div>
+            <div class="back"></div>
+            <div class="left"></div>
+            <div class="right"></div>
+            <div
+              class="top"
+              [ngClass]="activeEasyTop ? 'activeTop' : 'top'"
+            ></div>
+            <div class="bottom"></div>
+          </div>
+        </div>
+        <button
+          [ngClass]="moveEasyButton ? 'moveButton' : 'disable'"
+          (click)="onAddPoint('easy')"
+        >
+          easy {{ easyNumber }} / {{ total }} - {{ easyResult }} %
+        </button>
+      </div>
+      <div class="two">
+        <div class="scene">
+          <div class="floor"></div>
+          <div class="cube">
+            <div class="front"></div>
+            <div class="back"></div>
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="top"></div>
+            <div class="bottom"></div>
+          </div>
+        </div>
+        <button (click)="onAddPoint('medium')">
+          medium {{ mediumNumber }} / {{ total }}
+        </button>
+      </div>
+      <div class="three">
+        <div class="scene">
+          <div class="floor"></div>
+          <div class="cube">
+            <div class="front"></div>
+            <div class="back"></div>
+            <div class="left"></div>
+            <div class="right"></div>
+            <div
+              class="top"
+              [ngClass]="activeDifficultTop ? 'activeTop' : 'top'"
+            ></div>
+            <div class="bottom"></div>
+          </div>
+        </div>
+        <button
+          [ngClass]="moveDifficultButton ? 'moveButton' : 'disable'"
+          (click)="onAddPoint('difficult')"
+        >
+          difficult {{ difficultNumber }} / {{ total }}
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+<section>
+  <div class="training">
+    <div>
+      <h3>Let's practise</h3>
+      <div class="word">
+        <input
+          placeholder="Check word's definition"
+          [(ngModel)]="checkedWord"
+        />
+      </div>
+    </div>
+    <div>
+      <button (click)="onShowDefinition(checkedWord)">
+        Show me definition
+      </button>
+    </div>
+    <div>
+      <button (click)="onShowExample(checkedWord)">Show me example</button>
+    </div>
+  </div>
+  <div>
+    <p *ngIf="checkedError">{{ checkedError }}</p>
+    <p>{{ checkedDefinition }}</p>
+    <p>{{ checkedExample }}</p>
+  </div>
+</section>
