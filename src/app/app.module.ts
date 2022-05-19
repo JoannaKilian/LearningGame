@@ -3,9 +3,11 @@ import { NgModule } from "@angular/core";
 
 import { AppComponent } from "./app.component";
 import { FormsModule } from "@angular/forms";
+import { ExampleComponent } from './example/example.component';
+import { BoxComponent } from './box/box.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ExampleComponent, BoxComponent],
   imports: [BrowserModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],

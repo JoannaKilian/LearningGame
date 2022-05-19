@@ -7,7 +7,7 @@ import { Component, SimpleChanges } from "@angular/core";
 })
 export class AppComponent {
   title = "translator";
-  word: string;
+  word: string = "";
   drawedWord: string;
   definition: string;
   preferSelectWord: string;
@@ -19,16 +19,12 @@ export class AppComponent {
   disabledButton: boolean = true;
   disabledBoxButton: boolean = true;
 
-  checkedWord: string;
-  checkedDefinition: string;
-  checkedExample: string;
-  checkedError: string;
-
   total: number;
   easyNumber: number = 0;
-  easyResult: number;
   difficultNumber: number = 0;
 
+  startGame: boolean = true;
+  valueSlider: number = 10;
   finishGame: boolean = false;
 
   wordArrayBasic: Array<string> = [
@@ -42,58 +38,40 @@ export class AppComponent {
     "school",
     "family",
     "week",
-    // "work",
-    // "night",
-    // "water",
-    // "money",
-    // "book",
-    // "job",
+    "work",
+    "night",
+    "water",
+    "money",
+    "book",
+    "job",
+    "drink",
+    "internet",
+    "circle",
+    "building",
   ];
-  wordArray = this.wordArrayBasic.slice();
+  wordCoppyBasicArray: Array<string> = [];
+  wordStartArray: Array<string> = [];
+  wordArray: Array<string> = [];
 
-  ngOnInit() {
-    this.drawTheWord();
+  onStartGame() {
+    this.wordCoppyBasicArray = this.wordArrayBasic.slice();
+    for (let i = 0; i < this.valueSlider; i++) {
+      let index: number = Math.floor(
+        Math.random() * this.wordCoppyBasicArray.length
+      );
+      this.wordStartArray.push(this.wordCoppyBasicArray[index]);
+      this.wordCoppyBasicArray.splice(index, 1);
+    }
+    this.wordArray = this.wordStartArray.slice();
     this.total = this.wordArray.length;
-    this.easyResult = (this.easyNumber / this.total) * 100;
-  }
-
-  onShowDefinition(word: string) {
-    this.checkedError = "";
-    this.checkedExample = "";
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-      .then((response) => response.json())
-      .then(
-        (data) =>
-          (this.checkedDefinition =
-            data[0].meanings[0].definitions[0].definition)
-      )
-      .catch((error: any) => {
-        this.checkedError = "Not valid word";
-      });
-  }
-  onShowExample(word: string) {
-    this.checkedError = "";
-    this.checkedDefinition = "";
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-      .then((response) => response.json())
-      .then((data) => {
-        data[0].meanings.reverse().forEach((item) => {
-          item.definitions.forEach((example, index) => {
-            if (item.definitions[index].example !== undefined) {
-              this.checkedExample = item.definitions[index].example;
-            } else return;
-          });
-        });
-      })
-      .catch((error: any) => {
-        this.checkedError = "Not valid word";
-      });
+    this.drawTheWord();
+    this.startGame = false;
   }
 
   drawTheWord() {
     const index = Math.floor(Math.random() * this.wordArray.length);
     const drawWord = this.wordArray[index];
-    console.log(drawWord);
+    console.log("word:", drawWord);
     this.drawedWord = drawWord;
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${drawWord}`)
       .then((response) => response.json())
@@ -114,13 +92,11 @@ export class AppComponent {
   }
   checkAnswer() {
     if (this.word.toUpperCase() == this.drawedWord.toUpperCase()) {
-      console.log("true", this.word, this.drawedWord);
       this.preferSelectWord = "TRUE: click easy BOX";
       this.activeEasyTop = true;
       this.activeDifficultTop = false;
       this.moveEasyButton = true;
     } else {
-      console.log("false", this.word, this.drawedWord);
       this.preferSelectWord = "FALSE: click difficult BOX";
       this.activeDifficultTop = true;
       this.activeEasyTop = false;
@@ -133,7 +109,6 @@ export class AppComponent {
     if (this.word.length > 0) {
       if (level === "easy") {
         this.easyNumber++;
-        this.easyResult = (this.easyNumber / this.total) * 100;
         let i = this.wordArray.indexOf(this.drawedWord);
         this.wordArray.splice(i, 1);
         if (this.wordArray.length === 0) {
@@ -152,5 +127,6 @@ export class AppComponent {
     this.wordArray = this.wordArrayBasic.slice();
     this.easyNumber = 0;
     this.difficultNumber = 0;
+    this.startGame = true;
   }
 }

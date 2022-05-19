@@ -1,0 +1,19 @@
+<div class="training">
+  <div>
+    <h3>Let's practise</h3>
+    <div class="word">
+      <input placeholder="Check word's definition" [(ngModel)]="checkedWord" />
+    </div>
+  </div>
+  <div>
+    <button (click)="onShowDefinition(checkedWord)">Show me definition</button>
+  </div>
+  <div>
+    <button (click)="onShowExample(checkedWord)">Show me example</button>
+  </div>
+</div>
+<div>
+  <p *ngIf="checkedError">{{ checkedError }}</p>
+  <p>{{ checkedDefinition }}</p>
+  <p>{{ checkedExample }}</p>
+</div>

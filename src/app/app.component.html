@@ -1,3 +1,26 @@
+<ng-container *ngIf="startGame"
+  ><div class="finish">
+    <h1>choice the number</h1>
+    <h1>of words in the game</h1>
+    <div class="slidecontainer">
+      <input
+        type="range"
+        min="5"
+        max="20"
+        [(ngModel)]="valueSlider"
+        class="slider"
+        id="myRange"
+        step="5"
+      />
+    </div>
+    <button (click)="onStartGame()">
+      <p>play with</p>
+      <h1>{{ valueSlider }}</h1>
+      <p>words</p>
+    </button>
+  </div></ng-container
+>
+
 <ng-container *ngIf="finishGame"
   ><div class="finish">
     <h1>congratulations!</h1>
@@ -36,44 +59,18 @@
     </div>
     <div class="boxes">
       <div class="one">
-        <div class="scene">
-          <div class="floor"></div>
-          <div class="cube">
-            <div class="front"></div>
-            <div class="back"></div>
-            <div class="left"></div>
-            <div class="right"></div>
-            <div
-              class="top"
-              [ngClass]="activeEasyTop ? 'activeTop' : 'top'"
-            ></div>
-            <div class="bottom"></div>
-          </div>
-        </div>
+        <app-box [isActiveTop]="activeEasyTop"></app-box>
         <button
           [disabled]="disabledBoxButton"
           [ngStyle]="{ color: disabledBoxButton ? 'grey' : 'white' }"
           [ngClass]="moveEasyButton ? 'moveButton' : 'disable'"
           (click)="onAddPoint('easy')"
         >
-          easy {{ easyNumber }} / {{ total }} - {{ easyResult }} %
+          easy {{ easyNumber }} / {{ total }}
         </button>
       </div>
       <div class="three">
-        <div class="scene">
-          <div class="floor"></div>
-          <div class="cube">
-            <div class="front"></div>
-            <div class="back"></div>
-            <div class="left"></div>
-            <div class="right"></div>
-            <div
-              class="top"
-              [ngClass]="activeDifficultTop ? 'activeTop' : 'top'"
-            ></div>
-            <div class="bottom"></div>
-          </div>
-        </div>
+        <app-box [isActiveTop]="activeDifficultTop"></app-box>
         <button
           [disabled]="disabledBoxButton"
           [ngStyle]="{ color: disabledBoxButton ? 'grey' : 'white' }"
@@ -87,28 +84,5 @@
   </main>
 </div>
 <section>
-  <div class="training">
-    <div>
-      <h3>Let's practise</h3>
-      <div class="word">
-        <input
-          placeholder="Check word's definition"
-          [(ngModel)]="checkedWord"
-        />
-      </div>
-    </div>
-    <div>
-      <button (click)="onShowDefinition(checkedWord)">
-        Show me definition
-      </button>
-    </div>
-    <div>
-      <button (click)="onShowExample(checkedWord)">Show me example</button>
-    </div>
-  </div>
-  <div>
-    <p *ngIf="checkedError">{{ checkedError }}</p>
-    <p>{{ checkedDefinition }}</p>
-    <p>{{ checkedExample }}</p>
-  </div>
+  <app-example></app-example>
 </section>
