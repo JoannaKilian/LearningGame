@@ -1,4 +1,5 @@
 <a href="https://joannakilian.github.io/LearningGame/"><h2>Play demo</h2></a>
+https://joannakilian.github.io/LearningGame/
 The game is it created in Angular and connected with outside API data. When start the game choose number of the words. Chosen number of wodrds there are drawn from word's array.
 ![image](https://user-images.githubusercontent.com/86100410/169294209-67c8669d-5a0d-478a-b7b3-50cdf471335b.png)
 Start the game:
